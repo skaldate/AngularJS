@@ -1,0 +1,23 @@
+.navbar-inverse {
+    color: #ffffff;
+}
+
+.content-wrapper {
+    padding: 20px;
+}
+
+.configure {
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 20px;
+}
+
+.configure-question {
+    padding: 10px;
+}
+
+@media (min-width: 992px) {
+    .configure {
+        border-right: 1px solid #cccccc;
+        border-bottom: none;
+    }
+}
