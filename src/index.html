@@ -1,106 +1,35 @@
 <html>
 
 <head>
-    <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
-    <link rel="stylesheet" href="../style/local.css"></link>
-    <link rel="stylesheet" href="../style/bootstrap.min.css"></link>
-    <script type="text/javascript" src="../style/bootstrap.min.css"></script>
+    <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="node_modules/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="questions/questionsController.js"></script>
+    <script type="text/javascript" src="analysis/analysisController.js"></script>
+    <link rel="stylesheet" href="style/local.css"></link>
+    <link rel="stylesheet" href="style/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="fonts/font-awesome.min.css"></link>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="style/bootstrap.min.js"></script>
 </head>
 
-<body ng-app>
+<body ng-app="triviaApp">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <h2>
                 Trivia Challenge
             </h2>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#!/analysis">Analysis</a></li>
+
+            </ul>
         </div>
+
+
     </nav>
-
-    <div class="container content-wrapper">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-
-                <div class="row configure">
-                    <div class="col-xs-12 configure-question">
-                        Number of Questions:
-                        <div class="btn-group btn-group-lg" role="group" aria-label="First group">
-                            <button type="button" class="btn btn-default">1</button>
-                            <button type="button" class="btn btn-default">2</button>
-                            <button type="button" class="btn btn-default">3</button>
-                            <button type="button" class="btn btn-default">4</button>
-                            <button type="button" class="btn btn-default">5</button>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 configure-question">
-                        Category:
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Choose
-              <span class="caret"></span>
-            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <li><a href="#">Science</a></li>
-                                <li><a href="#">Entertainment</a></li>
-                                <li><a href="#">Sports</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 configure-question">
-                        Difficulty:
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Choose
-              <span class="caret"></span>
-            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <li><a href="#">Easy</a></li>
-                                <li><a href="#">Medium</a></li>
-                                <li><a href="#">Hard</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end menu column -->
-
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-9">
-                <h2>
-                    Questions
-                </h2>
-
-                <div class="well">
-                    <div class="row">
-                        <div class="col-xs-1">
-                            <span class="fa fa-ticket fa-2x"></span>
-                        </div>
-                        <div class="col-xs-11">
-                            Q: Which animated movie was first to feature a celebrity as a voice actor?
-                        </div>
-                    </div>
-                </div>
-
-                <div class="well">
-                    <div class="row">
-                        <div class="col-xs-1">
-                            <span class="fa fa-flask fa-2x"></span>
-                        </div>
-                        <div class="col-xs-11">
-                            Q: What is the name of the main character of the anime &quot;One-Punch Man&quot;?
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- end questions column -->
-        </div>
-        <!-- end question row -->
-    </div>
-    <!-- end container -->
-
+    </nav>
+    <div ng-view class="container content-wrapper "></div>
 </body>
 
 </html>
