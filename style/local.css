@@ -2,6 +2,21 @@
     color: #ffffff;
 }
 
+.well.incorrect-answer {
+    background-color: #4d0000;
+}
+
+.list-group-item.correct {
+    background-color: #00802b;
+    border-color: #00802b;
+}
+
+.btn-default.selected {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
 .content-wrapper {
     padding: 20px;
 }
