@@ -4,16 +4,22 @@
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
     <script type="text/javascript" src="node_modules/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="services/scoreService.js"></script>
+    <script type="text/javascript" src="services/questionsService.js"></script>
+    <script type="text/javascript" src="mainController.js"></script>
     <script type="text/javascript" src="questions/questionsController.js"></script>
     <script type="text/javascript" src="analysis/analysisController.js"></script>
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="style/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style/local.css"></link>
     <link rel="stylesheet" href="style/bootstrap.min.css"></link>
     <link rel="stylesheet" href="fonts/font-awesome.min.css"></link>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="style/bootstrap.min.js"></script>
+
 </head>
 
-<body ng-app="triviaApp">
+<body ng-app="triviaApp" ng-controller="mainController">
+
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <h2>
@@ -22,12 +28,16 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#!/analysis">Analysis</a></li>
-
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <h1>Rounds:[<span ng-repeat="point in score.points">{{point}} </span> ]</h1>
+                </li>
+                <li>
+                    <h1>Score: {{score.total_points}}</h1>
+                </li>
             </ul>
         </div>
-
-
-    </nav>
     </nav>
     <div ng-view class="container content-wrapper "></div>
 </body>

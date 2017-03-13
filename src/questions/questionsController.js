@@ -1,30 +1,30 @@
 app.controller("questionsController", questionController);
 
-function questionController($scope) {
+function questionController($scope, scoreService, questionsService) {
     $scope.numberofQuestions = [1, 2, 3, 4, 5];
     $scope.categories = [{
-            displayName: "Choose",
+            displayName: "Any Category",
             value: ""
         },
         {
             displayName: "Science",
-            value: "Science"
+            value: "18"
         },
         {
             displayName: "History",
-            value: "History"
+            value: "23"
         },
         {
             displayName: "Sports",
-            value: "Sports"
+            value: "21"
         },
         {
             displayName: "Geography",
-            value: "Geography"
+            value: "9"
         }
     ];
-    $scope.difficultyLevel = [{
-            displayName: "Choose",
+    $scope.levels = [{
+            displayName: "Any Level",
             value: ""
         },
         {
@@ -40,73 +40,36 @@ function questionController($scope) {
             value: "hard"
         }
     ];
+
     $scope.questions = [];
+    $scope.selectedCateogry = $scope.categories[0];
+    $scope.selectedDifficulty = $scope.levels[0];
+    $scope.number = $scope.numberofQuestions[2];
+    var submitted = false;
 
     function getQuestions() {
-        var questions = [{
-                "category": "Sports",
-                "type": "multiple",
-                "difficulty": "easy",
-                "question": "Which team won the 2015-16 English Premier League?",
-                "correct_answer": "Leicester City",
-                "incorrect_answers": ["Liverpool", "Cheslea", "Manchester United"]
-            },
-            {
-                "category": "Sports",
-                "type": "multiple",
-                "difficulty": "easy",
-                "question": "Which country will host the 2020 Summer Olympics?",
-                "correct_answer": "Japan",
-                "incorrect_answers": ["China", "Australia", "Germany"]
-            },
-            {
-                "category": "Sports",
-                "type": "multiple",
-                "difficulty": "easy",
-                "question": "Who won the 2015 Formula 1 World Championship?",
-                "correct_answer": "Lewis Hamilton",
-                "incorrect_answers": ["Nico Rosberg", "Sebastian Vettel", "Jenson Button"]
-            }
-        ];
-        questions.forEach(function(question) {
-            question.possible_answers = [];
-
-            var answers = question.incorrect_answers.concat(question.correct_answer);
-            question.incorrect_answers.forEach(function(incorrect_answer) {
-                var ans = {
-                    answer: incorrect_answer,
-                    selected: false,
-                    isCorrect: false
+        submitted = false;
+        var questions = [];
+        questionsService.getQuestions().then(function(data) {
+            data.forEach(function(question) {
+                questions.push(question);
+                if (question.graded == true) {
+                    submitted = true;
                 }
-                question.possible_answers.push(ans);
             });
-            question.possible_answers.push({
-                answer: question.correct_answer,
-                selected: false,
-                isCorrect: true
-            });
-            shuffle(question.possible_answers);
         });
         return questions;
     }
 
-    function shuffle(array) {
-        var i = 0;
-        var j = 0;
-        var temp = null;
+    function _reset() {
 
-        for (i = array.length - 1; i > 0; i -= 1) {
-            j = Math.floor(Math.random() * (i + 1))
-            temp = array[i]
-            array[i] = array[j]
-            array[j] = temp
-        }
+        $scope.selectedCateogry = $scope.categories[0];
+        $scope.selectedDifficulty = $scope.levels[0];
+        $scope.questions = getQuestions();
     }
-
-    $scope.selectedCateogry = $scope.categories[0];
-    $scope.selectedDifficulty = $scope.difficultyLevel[0];
-    $scope.questions = getQuestions();
-
+    $scope.updateNumberOfQuestions = function(num) {
+        $scope.number = num;
+    }
     $scope.updateCategory = function(category) {
         $scope.selectedCateogry = category;
     }
@@ -115,12 +78,33 @@ function questionController($scope) {
         $scope.selectedDifficulty = difficulty;
     }
 
-    $scope.selectAnswer = function(ans, question) {
-        question.possible_answers.forEach(function(answer) {
-            answer.selected = false;
-        });
-        ans.selected = true;
+    $scope.updateQuestions = function() {
+        questionsService.updateQuestions($scope.number, $scope.selectedDifficulty.value,
+                $scope.selectedCateogry.value)
+            .then(function(data) {
+                submitted = false;
+                $scope.questions = data;
+            });
     }
+
+    $scope.selectAnswer = function(ans, question) {
+        if (submitted == false) {
+            question.possible_answers.forEach(function(answer) {
+                answer.selected = false;
+            });
+            ans.selected = true;
+        }
+    }
+    $scope.calculateScore = function() {
+        var score = 0;
+        if (submitted == true) {
+            return;
+        }
+        scoreService.updateScore($scope.questions);
+
+        submitted = true;
+    }
+    _reset();
 
 
 

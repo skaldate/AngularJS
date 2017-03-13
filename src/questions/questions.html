@@ -6,9 +6,11 @@
                 <div class="col-xs-12 configure-question">
                     Number of Questions:
                     <div class="btn-group btn-group-lg" role="group" aria-label="First group">
-                        <button ng-repeat="num in numberofQuestions" type="button" class="btn btn-default">{{num}}</button>
+                        <button ng-repeat="num in numberofQuestions" ng-class="{'selected': number==num}" ng-click="updateNumberOfQuestions(num)" type="button" class="btn btn-default">{{num}}</button>
                     </div>
                 </div>
+
+
                 <div class="col-xs-12 configure-question">
                     Choose Category:
                     <div class="dropdown">
@@ -17,53 +19,52 @@
                                  <span class="caret"></span>
                             </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <li ng-repeat="cateogry in categories" ng-click="updateCategory(cateogry)">
-                                <a href="#">{{cateogry.displayName}}</a>
+                            <li ng-repeat="cateogry in categories">
+                                <span ng-click="updateCategory(cateogry)">{{cateogry.displayName}}</span>
                             </li>
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-xs-12 configure-question">
                     Choose Difficulty Level:
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 {{selectedCateogry.displayName}} 
+                                {{selectedDifficulty.displayName}} 
                                  <span class="caret"></span>
                             </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <li ng-repeat="level in difficultyLevel" ng-click="updateDifficulty(level)">
-                                <a href="#">{{level.displayName}}</a>
+                            <li ng-repeat="level in levels">
+                                <span ng-click="updateDifficulty(level)">{{level.displayName}}</span>
                             </li>
-
                         </ul>
                     </div>
                 </div>
+
             </div>
+            <button ng-click="updateQuestions()" type="button" class="btn btn-default btn-lg">Update Questions</button>
         </div>
         <!-- end menu column -->
 
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-9">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-9 ">
             <h2>
                 Questions
             </h2>
 
-            <div class="well" ng-repeat="q in questions">
-                <div class="row">
-                    <div class="col-xs-1">
-                        <span class="fa fa-ticket fa-2x"></span>
+            <div class="well" ng-repeat="q in questions ">
+                <div class="row ">
+                    <div class="col-xs-1 ">
+                        <span class="fa fa-ticket fa-2x "></span>
                     </div>
-                    <div class="col-xs-11">
+                    <div class="col-xs-11 ">
                         Q: {{q.question}}
                     </div>
                 </div>
-                <ul ng-repeat="ans in q.possible_answers" class="list-group">
-                    <li ng-click="selectAnswer(ans, q)" ng-class="{'active' : ans.selected}" class="list-group-item">{{ans.answer}}</li>
+                <ul ng-repeat="ans in q.possible_answers " class="list-group ">
+                    <li ng-click="selectAnswer(ans, q) " ng-class="{ active : ans.selected, correct: ans.isCorrect && q.graded} " class="list-group-item ">{{ans.answer}}</li>
                 </ul>
-
             </div>
-
-
-
+            <button ng-click="calculateScore()" type="button" class="btn btn-default btn-lg">Submit</button>
         </div>
         <!-- end questions column -->
     </div>
