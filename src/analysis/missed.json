@@ -1,0 +1,93 @@
+{
+    "chart": {
+        "palette": "1",
+        "caption": "Trivia Challenge",
+        "subcaption": "Missed questions by category and difficulty",
+        "showvalues": "0",
+        "legendshadow": "0",
+        "legendborderalpha": "0",
+        "yaxismaxvalue": "60",
+        "legendbgcolor": "FFFFFF",
+        "plottooltext": "Year : $seriesname Revenue : $datavalue"
+    },
+    "categories": [
+        {
+            "category": [
+                {
+                    "label": "Easy",
+                    "stepSkipped": false
+                },
+                {
+                    "label": "Medium",
+                    "stepSkipped": false
+                },
+                {
+                    "label": "Hard",
+                    "stepSkipped": false
+                }
+            ]
+        }
+    ],
+    "dataset": [
+        {
+            "seriesname": "Science",
+            "color": "AA3939",
+            "data": [
+                {
+                    "value": "3"
+                },
+                {
+                    "value": "15"
+                },
+                {
+                    "value": "55"
+                }
+            ]
+        },
+        {
+            "seriesname": "History",
+            "color": "AA6C39",
+            "data": [
+                 {
+                    "value": "1"
+                },
+                {
+                    "value": "10"
+                },
+                {
+                    "value": "25"
+                }
+            ]
+        },
+        {
+            "seriesname": "Sports",
+            "color": "226666",
+            "data": [
+                 {
+                    "value": "5"
+                },
+                {
+                    "value": "4"
+                },
+                {
+                    "value": "19"
+                }
+            ]
+        },
+        {
+            "seriesname": "Geography",
+            "color": "2D882D",
+            "data": [
+                 {
+                    "value": "8"
+                },
+                {
+                    "value": "2"
+                },
+                {
+                    "value": "33"
+                }
+            ]
+        }
+    ]
+}
