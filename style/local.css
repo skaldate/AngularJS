@@ -2,6 +2,10 @@
     color: #ffffff;
 }
 
+.nav.navbar-nav.navbar-right {
+    margin-top: -6px;
+}
+
 .well.incorrect-answer {
     background-color: #4d0000;
 }

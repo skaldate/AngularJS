@@ -9,6 +9,8 @@
     <script type="text/javascript" src="mainController.js"></script>
     <script type="text/javascript" src="questions/questionsController.js"></script>
     <script type="text/javascript" src="analysis/analysisController.js"></script>
+    <script type="text/javascript" src="node_modules/fusioncharts/fusioncharts.js"></script>
+    <script type="text/javascript" src="analysis/angular-fusioncharts.min.js"></script>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="style/bootstrap.min.js"></script>
@@ -26,15 +28,16 @@
                 Trivia Challenge
             </h2>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#!/analysis">Analysis</a></li>
+                <li ng-class="{active: $location.path() == '/'}"><a href="#">Home</a></li>
+                <li ng-class="{active: $location.path() == '/analysis'}""><a href="#!/analysis">Analysis</a></li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <h1>Rounds:[<span ng-repeat="point in score.points">{{point}} </span> ]</h1>
+                    <h3>Rounds:[<span ng-repeat="point in score.points">{{point}} </span> ]</h3>
                 </li>
                 <li>
-                    <h1>Score: {{score.total_points}}</h1>
+                    <h3>Score: {{score.total_points}}</h3>
                 </li>
             </ul>
         </div>
