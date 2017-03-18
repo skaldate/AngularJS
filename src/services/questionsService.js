@@ -2,6 +2,7 @@ app.service("questionsService", questionsService);
 
 function questionsService($http, $q) {
     var currentQuestionsSet = [];
+    var gradedQuestions = [];
 
     function formatQuestions(questions) {
         currentQuestionsSet = [];
@@ -87,6 +88,31 @@ function questionsService($http, $q) {
                 deferred.resolve(currentQuestionsSet);
             });
             return deferred.promise;
+        },
+        saveGradedQuestions: function(questions) {
+            gradedQuestions.push(questions);
+            var url = "https://websiteThatDoesNotExist.com/"
+            $http.post(url, questions)
+                .then(function(data, status) {
+                    console.log("What! it does exist");
+                }, function(error, status) {
+                    console.log("Let me guess! 404 ", +status + " I told ya!");
+                });
+
+        },
+        getGradedQuestions: function() {
+            return gradedQuestions;
+        },
+        getGradedQuestionsByCategory: function(category) {
+            var categoryQuestions = [];
+            gradedQuestions.forEach(function(questions) {
+                questions.forEach(function(question) {
+                    if (question.category.indexOf(category) >= 0) {
+                        categoryQuestions.push(question);
+                    }
+                });
+            });
+            return categoryQuestions;
         }
     }
 

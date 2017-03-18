@@ -1,10 +1,16 @@
 app.service("scoreService", scoreService);
+var gradedQuestions = [];
 
-function scoreService() {
+var saveGradedQuestions = function() {
+
+
+}
+
+function scoreService(questionsService) {
     return {
         score: {
             total_points: 0,
-            points: []
+            points: [],
         },
         updateScore: function(questions) {
             var points = 0;
@@ -20,6 +26,7 @@ function scoreService() {
 
             this.score.total_points = this.score.total_points + points;
             this.score.points.push(points);
+
         }
     }
 }
