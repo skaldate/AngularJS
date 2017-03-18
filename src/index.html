@@ -4,8 +4,9 @@
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
     <script type="text/javascript" src="node_modules/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="services/scoreService.js"></script>
     <script type="text/javascript" src="services/questionsService.js"></script>
+    <script type="text/javascript" src="services/scoreService.js"></script>
+    <script type="text/javascript" src="services/analysisService.js"></script>
     <script type="text/javascript" src="mainController.js"></script>
     <script type="text/javascript" src="questions/questionsController.js"></script>
     <script type="text/javascript" src="analysis/analysisController.js"></script>
@@ -29,12 +30,12 @@
             </h2>
             <ul class="nav navbar-nav">
                 <li ng-class="{active: $location.path() == '/'}"><a href="#">Home</a></li>
-                <li ng-class="{active: $location.path() == '/analysis'}""><a href="#!/analysis">Analysis</a></li>
+                <li ng-class="{active: $location.path() == '/analysis'}" "><a href="#!/analysis ">Analysis</a></li>
 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right ">
                 <li>
-                    <h3>Rounds:[<span ng-repeat="point in score.points">{{point}} </span> ]</h3>
+                    <h3>Rounds:[<span ng-repeat="point in score.points ">{{point}} </span> ]</h3>
                 </li>
                 <li>
                     <h3>Score: {{score.total_points}}</h3>

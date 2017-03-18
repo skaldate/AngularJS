@@ -5,6 +5,7 @@ app.config(function($routeProvider) {
         controller: "questionsController"
     }).when("/analysis", {
         templateUrl: "analysis/analysis.html",
-        controller: "analysisController"
+        controller: "analysisController",
+        controllerAs: "vm",
     })
 });
