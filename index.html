@@ -1,28 +1,14 @@
 <html>
 
 <head>
-    <script type="text/javascript" src="node_modules/angular/angular.js"></script>
-    <script type="text/javascript" src="node_modules/angular-route/angular-route.js"></script>
-    <script type="text/javascript" src="node_modules/angular-sanitize/angular-sanitize.js"></script>
-    <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="services/scoreService.js"></script>
-    <script type="text/javascript" src="services/questionsService.js"></script>
-    <script type="text/javascript" src="services/analysisService.js"></script>
-    <script type="text/javascript" src="mainController.js"></script>
-    <script type="text/javascript" src="questions/questionsController.js"></script>
-    <script type="text/javascript" src="analysis/analysisController.js"></script>
-    <script type="text/javascript" src="node_modules/fusioncharts/fusioncharts.js"></script>
-    <script type="text/javascript" src="analysis/angular-fusioncharts.min.js"></script>
-
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="style/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style/bootstrap.min.css"></link>
     <link rel="stylesheet" href="fonts/font-awesome.min.css"></link>
     <link rel="stylesheet" href="style/local.css"></link>
-
 </head>
 
-<body ng-app="triviaApp" ng-controller="mainController">
+<body>
 
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
@@ -30,21 +16,21 @@
                 Trivia Challenge
             </h1>
             <ul class="nav navbar-nav">
-                <li ng-class="{active: $location.path() == '/'}"><a href="#">Home</a></li>
-                <li ng-class="{active: $location.path() == '/analysis'}""><a href="#!/analysis">Analysis</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#!/analysis">Analysis</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right score-header">
                 <li>
-                    <h3>Score per Round:  <span ng-repeat="point in score.points track by $index">{{point}},&nbsp;</span></h3>
+                    <h3>Score per Round:</h3>
                 </li>
                 <li>
-                    <h3>Total score: {{score.total_points}}</h3>
+                    <h3>Total score:</h3>
                 </li>
             </ul>
         </div>
     </nav>
-    <div ng-view class="container content-wrapper "></div>
+    <div class="container content-wrapper "></div>
 </body>
 
 </html>
