@@ -91,13 +91,13 @@ function questionsService($http, $q) {
         },
         saveGradedQuestions: function(questions) {
             gradedQuestions.push(questions);
-            var url = "https://websiteThatDoesNotExist.com/"
-            $http.post(url, questions)
-                .then(function(data, status) {
-                    console.log("What! it does exist");
-                }, function(error, status) {
-                    console.log("Let me guess! 404 ", +status + " I told ya!");
-                });
+            /*  var url = "https://websiteThatDoesNotExist.com/"
+              $http.post(url, questions)
+                  .then(function(data, status) {
+                      console.log("What! it does exist");
+                  }, function(error, status) {
+                      console.log("Let me guess! 404 ", +status + " I told ya!");
+                  });*/
 
         },
         getGradedQuestions: function() {

@@ -1,7 +1,6 @@
-<h2>{{title}}</h2>
+<h2>{{vm.title}}</h2>
 
 <div>
-    <input type="button" value="Click Me" ng-click="vm.getGradedQuestion()" />
-    <div fusioncharts width="800" height="400" dataformat="jsonurl" datasource="analysis/missed.json" type="mscombi2d">
+    <div fusioncharts width="600" height="400" type="stackedcolumn2d" dataSource="{{dataSource}}" renderAt: 'chart-container'>
     </div>
 </div>

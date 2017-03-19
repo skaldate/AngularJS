@@ -27,6 +27,8 @@ function scoreService(questionsService) {
             this.score.total_points = this.score.total_points + points;
             this.score.points.push(points);
 
+            questionsService.saveGradedQuestions(questions);
+
         }
     }
 }

@@ -20,7 +20,7 @@ function questionController($scope, scoreService, questionsService) {
         },
         {
             displayName: "Geography",
-            value: "9"
+            value: "22"
         }
     ];
     $scope.levels = [{

@@ -1,35 +1,45 @@
 app.service('analysisService', analysisService);
 
 function analysisService(questionsService) {
+    var history = {};
+    var geography = {};
+    var science = {};
+    var sports = {};
 
-    var history = {
-        correct: 0,
-        incorrect: 0
-    };
-    var geography = {
-        correct: 0,
-        incorrect: 0
-    };
-    var science = {
-        correct: 0,
-        incorrect: 0
-    };
-    var sports = {
-        correct: 0,
-        incorrect: 0
-    };
+    function resetCounts() {
+        history = {
+            correct: 0,
+            incorrect: 0
+        };
+        geography = {
+            correct: 0,
+            incorrect: 0
+        };
+        science = {
+            correct: 0,
+            incorrect: 0
+        };
+        sports = {
+            correct: 0,
+            incorrect: 0
+        };
+    }
+    resetCounts();
 
-    function setCatorgyAnswers() {
+
+    function setCategoryAnswers() {
+        resetCounts();
         var historyQuestions = questionsService.getGradedQuestionsByCategory("History");
         var geographyQuestions = questionsService.getGradedQuestionsByCategory("Geography");
-        var scienceQuestions = questionsService.getGradedQuestionsByCategory("Science");
+        var scienceQuestions = questionsService.getGradedQuestionsByCategory("Science: Computers");
         var sportsQuestions = questionsService.getGradedQuestionsByCategory("Sports");
 
         historyQuestions.forEach(function(question) {
             question.possible_answers.forEach(function(ans) {
                 if (ans.selected && ans.isCorrect) {
                     history.correct++;
-                } else {
+                }
+                if (ans.selected && !ans.isCorrect) {
                     history.incorrect++;
                 }
             });
@@ -38,7 +48,8 @@ function analysisService(questionsService) {
             question.possible_answers.forEach(function(ans) {
                 if (ans.selected && ans.isCorrect) {
                     geography.correct++;
-                } else {
+                }
+                if (ans.selected && !ans.isCorrect) {
                     geography.incorrect++;
                 }
             });
@@ -47,16 +58,18 @@ function analysisService(questionsService) {
             question.possible_answers.forEach(function(ans) {
                 if (ans.selected && ans.isCorrect) {
                     science.correct++;
-                } else {
+                }
+                if (ans.selected && !ans.isCorrect) {
                     science.incorrect++;
                 }
             });
         });
-        sports.forEach(function(question) {
+        sportsQuestions.forEach(function(question) {
             question.possible_answers.forEach(function(ans) {
                 if (ans.selected && ans.isCorrect) {
                     sports.correct++;
-                } else {
+                }
+                if (ans.selected && !ans.isCorrect) {
                     sports.incorrect++;
                 }
             });
@@ -66,6 +79,7 @@ function analysisService(questionsService) {
 
     return {
         getCorrectIncorrectData: function() {
+            setCategoryAnswers();
             var result = [{
                 "seriesname": "Correct",
                 "data": [{
@@ -82,7 +96,7 @@ function analysisService(questionsService) {
                     }
                 ]
             }, {
-                "seriesname": "InCorrect",
+                "seriesname": "Incorrect",
                 "data": [{
                         "value": history.incorrect
                     },
