@@ -8,6 +8,7 @@ let app = express();
 app.use('/node_modules', express.static(join(__dirname, 'node_modules')));
 app.use('/fonts', express.static(join(__dirname, 'fonts')));
 app.use('/style', express.static(join(__dirname, 'style')));
+app.use('/scripts', express.static(join(__dirname, 'scripts')));
 app.use(express.static(join(__dirname, 'src')));
 
 app.listen(3000, 'localhost', function() {
