@@ -1,11 +1,12 @@
-var app = angular.module("triviaApp", ['ngRoute', 'ng-fusioncharts', 'ngSanitize']);
+var app = angular.module("triviaApp", ["ngRoute", 'ng-fusioncharts', 'ngSanitize']);
 app.config(function($routeProvider) {
     $routeProvider.when("/", {
         templateUrl: "questions/questions.html",
-        controller: "questionsController"
+        controller: "questionsController",
+        controllerAs: "questionsVm"
     }).when("/analysis", {
         templateUrl: "analysis/analysis.html",
         controller: "analysisController",
-        controllerAs: "vm",
+        controllerAs: "analysisVm",
     })
 });

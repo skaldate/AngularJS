@@ -1,4 +1,5 @@
-app.service('analysisService', analysisService);
+app.service("analysisService", analysisService);
+analysisService.$inject = ["questionsService"];
 
 function analysisService(questionsService) {
     var history = {};

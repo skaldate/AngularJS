@@ -1,12 +1,13 @@
 app.controller("analysisController", analysisController);
+analysisController.$inject = ["analysisService"];
 
-function analysisController($scope, analysisService) {
-    var vm = this;
-    vm.title = "Analysis and Charts";
+function analysisController(analysisService) {
+    var analysisVm = this;
+    analysisVm.title = "Analysis and Charts";
 
     var data = analysisService.getCorrectIncorrectData();
 
-    $scope.dataSource = {
+    analysisVm.dataSource = {
         chart: {
             caption: "How did you do?",
             xAxisname: "Answered",

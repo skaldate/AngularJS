@@ -1,8 +1,9 @@
 app.service("questionsService", questionsService);
+questionsService.$inject = ['$http', '$q'];
 
 function questionsService($http, $q) {
-    var currentQuestionsSet = [];
     var gradedQuestions = [];
+    var currentQuestionsSet = [];
 
     function formatQuestions(questions) {
         currentQuestionsSet = [];
@@ -55,14 +56,12 @@ function questionsService($http, $q) {
         if (level == "medium") return 20;
         if (level == "hard") return 30;
     }
-
     return {
         getQuestions: function() {
             var deferred = $q.defer();
             if (currentQuestionsSet.length > 0) {
                 deferred.resolve(currentQuestionsSet);
             } else {
-
                 var questions;
                 $http.get('https://opentdb.com/api.php?amount=3&category=23&difficulty=medium&type=multiple')
                     .then(function(data) {
@@ -71,7 +70,6 @@ function questionsService($http, $q) {
                         deferred.resolve(currentQuestionsSet);
                     });
             }
-
             return deferred.promise;
         },
         updateQuestions: function(numberOfQuestions, level, topic) {
@@ -82,13 +80,18 @@ function questionsService($http, $q) {
             if (level != "") {
                 url = url + "&difficulty=" + level;
             }
-            $http.get(url).then(function(data) {
-                questions = data.data.results;
-                formatQuestions(questions);
-                deferred.resolve(currentQuestionsSet);
-            });
+            $http.get(url).then(
+                function(data) {
+                    questions = data.data.results;
+                    formatQuestions(questions);
+                    deferred.resolve(currentQuestionsSet);
+                },
+                function(error) {
+                    console.log(error);
+                });
             return deferred.promise;
         },
+
         saveGradedQuestions: function(questions) {
             gradedQuestions.push(questions);
             /*  var url = "https://websiteThatDoesNotExist.com/"
@@ -114,6 +117,6 @@ function questionsService($http, $q) {
             });
             return categoryQuestions;
         }
-    }
 
+    }
 }

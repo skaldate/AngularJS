@@ -1,8 +1,11 @@
-app.controller("questionsController", questionController);
+app.controller("questionsController", questionsController);
+questionsController.$inject = ["scoreService", "questionsService"];
 
-function questionController($scope, scoreService, questionsService) {
-    $scope.numberofQuestions = [1, 2, 3, 4, 5];
-    $scope.categories = [{
+function questionsController(scoreService, questionsService) {
+
+    var questionsVm = this;
+    questionsVm.numberofQuestions = [1, 2, 3, 4, 5];
+    questionsVm.categories = [{
             displayName: "Any Category",
             value: ""
         },
@@ -23,7 +26,7 @@ function questionController($scope, scoreService, questionsService) {
             value: "22"
         }
     ];
-    $scope.levels = [{
+    questionsVm.levels = [{
             displayName: "Any Level",
             value: ""
         },
@@ -40,72 +43,44 @@ function questionController($scope, scoreService, questionsService) {
             value: "hard"
         }
     ];
+    questionsVm.number = 2;
+    questionsVm.selectedCategory = questionsVm.categories[0];
+    questionsVm.selectedDifficulty = questionsVm.levels[0];
+    questionsVm.total_points = 0;
+    questionsVm.questions = [];
 
-    $scope.questions = [];
-    $scope.selectedCateogry = $scope.categories[0];
-    $scope.selectedDifficulty = $scope.levels[0];
-    $scope.number = $scope.numberofQuestions[2];
-    var submitted = false;
+    questionsVm.updateCategory = function(category) {
+        questionsVm.selectedCategory = category;
+    }
+    questionsVm.updateNumberOfQuestions = function(num) {
+        questionsVm.number = num;
+    }
+    questionsVm.updateDifficulty = function(difficulty) {
+        questionsVm.selectedDifficulty = difficulty;
+    }
+    questionsVm.selectAnswer = function(ans, question) {
+        question.possible_answers.forEach(function(answer) {
+            answer.selected = false;
+        });
+        ans.selected = true;
+    }
+    questionsVm.calculateScore = function() {
+        scoreService.updateScore(questionsVm.questions);
+    }
+
+    questionsVm.updateQuestions = function() {
+        questionsService.updateQuestions(questionsVm.number, questionsVm.selectedDifficulty.value,
+                questionsVm.selectedCategory.value)
+            .then(function(data) {
+                questionsVm.questions = data;
+            });
+    }
 
     function getQuestions() {
-        submitted = false;
-        var questions = [];
         questionsService.getQuestions().then(function(data) {
-            data.forEach(function(question) {
-                questions.push(question);
-                if (question.graded == true) {
-                    submitted = true;
-                }
-            });
+            questionsVm.questions = data;
         });
-        return questions;
     }
-
-    function _reset() {
-
-        $scope.selectedCateogry = $scope.categories[0];
-        $scope.selectedDifficulty = $scope.levels[0];
-        $scope.questions = getQuestions();
-    }
-    $scope.updateNumberOfQuestions = function(num) {
-        $scope.number = num;
-    }
-    $scope.updateCategory = function(category) {
-        $scope.selectedCateogry = category;
-    }
-
-    $scope.updateDifficulty = function(difficulty) {
-        $scope.selectedDifficulty = difficulty;
-    }
-
-    $scope.updateQuestions = function() {
-        questionsService.updateQuestions($scope.number, $scope.selectedDifficulty.value,
-                $scope.selectedCateogry.value)
-            .then(function(data) {
-                submitted = false;
-                $scope.questions = data;
-            });
-    }
-
-    $scope.selectAnswer = function(ans, question) {
-        if (submitted == false) {
-            question.possible_answers.forEach(function(answer) {
-                answer.selected = false;
-            });
-            ans.selected = true;
-        }
-    }
-    $scope.calculateScore = function() {
-        var score = 0;
-        if (submitted == true) {
-            return;
-        }
-        scoreService.updateScore($scope.questions);
-
-        submitted = true;
-    }
-    _reset();
-
-
+    getQuestions();
 
 }

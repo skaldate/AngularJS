@@ -1,4 +1,4 @@
-<html>
+<html ng-app="triviaApp">
 
 <head>
     <script type="text/javascript" src="node_modules/angular/angular.js"></script>
@@ -11,40 +11,61 @@
     <script type="text/javascript" src="mainController.js"></script>
     <script type="text/javascript" src="questions/questionsController.js"></script>
     <script type="text/javascript" src="analysis/analysisController.js"></script>
+    <script type="text/javascript" src="directives/scoreDirective.js"></script>
     <script type="text/javascript" src="node_modules/fusioncharts/fusioncharts.js"></script>
-    <script type="text/javascript" src="analysis/angular-fusioncharts.min.js"></script>
+    <script type="text/javascript" src="scripts/angular-fusioncharts.min.js"></script>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="style/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style/bootstrap.min.css"></link>
     <link rel="stylesheet" href="fonts/font-awesome.min.css"></link>
     <link rel="stylesheet" href="style/local.css"></link>
-
 </head>
 
-<body ng-app="triviaApp" ng-controller="mainController">
+<body>
+    <div ng-controller="mainController as main">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <h1>
+                    {{main.title}}
+                </h1>
 
-    <nav class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
-            <h1>
-                Trivia Challenge
-            </h1>
-            <ul class="nav navbar-nav">
-                <li ng-class="{active: $location.path() == '/'}"><a href="#">Home</a></li>
-                <li ng-class="{active: $location.path() == '/analysis'}" "><a href="#!/analysis ">Analysis</a></li>
+                <ul class="nav navbar-nav">
+                    <li ng-class="{active: $location.path() == '/'}"><a href="#">Home</a></li>
+                    <li ng-class="{active: $location.path() == '/analysis'}"><a href="#!/analysis ">Analysis</a></li>
+                </ul>
 
-            </ul>
-            <ul class="nav navbar-nav navbar-right score-header ">
-                <li>
-                    <h3>Score per Round:  <span ng-repeat="point in score.points track by $index ">{{point}},&nbsp;</span></h3>
-                </li>
-                <li>
-                    <h3>Total score: {{score.total_points}}</h3>
-                </li>
-            </ul>
+                <ul class="nav navbar-nav">
+                    <li ng-show='main.playerReady'>
+                        <h3>{{main.userName}}</h3>
+                    </li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right score-header ">
+                    <!--<players-score score="main.score " label="Trivia total: " reset-score="main.resetPoints() ">
+                    </players-score>-->
+                    <li>
+                        <h3>Score per Round: <span ng-repeat="point in main.score.points track by $index ">{{point}},&nbsp;</span></h3>
+                    </li>
+                    <li>
+                        <h3>Total score: {{main.score.total_points}}</h3>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--Step 1 :  Layout -->
+        <div ng-if="!main.playerReady ">
+            <input type="text " ng-model="main.userName " placeholder="Enter Name " />
+            <button ng-click="main.updateUserName() " type="button " class="btn btn-primary btn-lg ">Enter</button>
+
         </div>
-    </nav>
-    <div ng-view class="container content-wrapper "></div>
+        <div ng-if="main.playerReady " ng-view class="container content-wrapper ">
+
+        </div>
+
+        <!-- end container -->
+    </div>
+
 </body>
 
 </html>

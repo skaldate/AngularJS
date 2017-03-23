@@ -1,10 +1,5 @@
 app.service("scoreService", scoreService);
-var gradedQuestions = [];
-
-var saveGradedQuestions = function() {
-
-
-}
+scoreService.$inject = ['questionsService'];
 
 function scoreService(questionsService) {
     return {
@@ -28,7 +23,6 @@ function scoreService(questionsService) {
             this.score.points.push(points);
 
             questionsService.saveGradedQuestions(questions);
-
         }
     }
 }
